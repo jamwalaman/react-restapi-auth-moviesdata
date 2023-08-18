@@ -15,5 +15,13 @@ const getMovies = async () => {
     return response.data
 }
 
-const movieService = {createMovie, getMovies}
+const deleteMovie = async (movieId, token) => {
+    const config = {
+        headers: {Authorization: `Bearer ${token}`,},
+    }
+    const response = await axios.delete(API_URL + movieId, config)
+    return response.data
+}
+
+const movieService = {createMovie, getMovies, deleteMovie}
 export default movieService
