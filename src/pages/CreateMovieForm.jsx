@@ -1,12 +1,18 @@
-import {useState} from 'react'
-import {useDispatch} from 'react-redux'
-import {createMovie} from '../features/movies/movieSlice'
+import {useState, useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {createMovie, reset} from '../features/movies/movieSlice'
 
-function MovieForm() {
+function CreateMovieForm() {
 
     const [formData, setFormData] = useState({ title:'', director: '', synopsis:''})
     const {title, director, synopsis} = formData
     const dispatch = useDispatch()
+    const {isError, message} = useSelector((state) => state.movies)
+
+    useEffect(() => {
+        if (isError) {console.log(message)}
+        return () => {dispatch(reset())}
+    }, [isError, message, dispatch])
 
     const onChange = (e) =>{
         setFormData((prevState) => ({ ...prevState, [e.target.name]: e.target.value }))
@@ -27,4 +33,4 @@ function MovieForm() {
 
 }
 
-export default MovieForm
+export default CreateMovieForm

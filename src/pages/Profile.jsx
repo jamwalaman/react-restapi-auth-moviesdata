@@ -1,7 +1,6 @@
 import {useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
-import MovieForm from '../components/MovieForm'
 import MovieItem from '../components/MovieItem'
 import {getMovies, reset} from '../features/movies/movieSlice'
 
@@ -20,11 +19,7 @@ function Profile() {
 
     return (
         <>
-        <p>Welcome {user && user.name} </p>
-        <p>Your fav movies</p>
-
-        <MovieForm />
-
+        
         <section>
             {movies.length > 0 ? (
             <div>

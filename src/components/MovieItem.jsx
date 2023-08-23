@@ -1,8 +1,6 @@
-import {useDispatch} from 'react-redux'
-import {deleteMovie} from '../features/movies/movieSlice'
+import {Link} from 'react-router-dom'
 
 function MovieItem({movie}) {
-    const dispatch = useDispatch()
 
     return (
         <div className="movie">
@@ -10,7 +8,7 @@ function MovieItem({movie}) {
             <p>Directed by {movie.director}</p>
             <p>{movie.synopsis}</p>
             <p>{new Date(movie.createdAt).toLocaleString('en-US')}, {movie.username}</p>
-            <button onClick={() => dispatch(deleteMovie(movie._id))} >Delete</button>
+			<Link to={`/movie/${movie._id}`} className='navbar-brand'>read more</Link>
         </div>
     )
 
