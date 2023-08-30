@@ -1,26 +1,34 @@
 import axios from 'axios'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {useEffect, useState} from 'react'
-import {useParams} from 'react-router-dom'
-import {deleteMovie} from '../features/movies/movieSlice'
+import {useParams, useNavigate} from 'react-router-dom'
+import {deleteMovie, reset} from '../features/movies/movieSlice'
+
+const apiurl = 'https://nodejs-restapi.up.railway.app/api/movies/'
 
 function MovieDetails() {
 
     const dispatch = useDispatch()
-
+    const navigate = useNavigate()
+    const {isSuccess} = useSelector((state) => state.movies)
     const [movie, setMovie] = useState({})
     const {id} = useParams()
 
     useEffect(() => {
         axios
-        .get(`https://nodejs-restapi.up.railway.app/api/movies/${id}`)
-        .then((res) => {
-            setMovie(res.data)
-        })
-        .catch((err) => {
-            console.log('Error from MovieDeatils')
-        })
+        .get(`${apiurl}${id}`)
+        .then((res) => {setMovie(res.data)})
+        .catch((err) => {console.log('Error from MovieDeatils')})
     }, [id])
+
+    useEffect(() => {
+        if(isSuccess) {navigate('/')}
+        dispatch(reset())
+    }, [isSuccess, navigate, dispatch] )
+
+    const onDeleteClick = () =>{
+        dispatch(deleteMovie(movie._id))
+    }
 
     return (
         <>
@@ -28,7 +36,7 @@ function MovieDetails() {
         <h3>{movie.title}</h3>
         <p>Directed by {movie.director}</p>
         <p>{movie.synopsis}</p>
-        <button onClick={() => dispatch(deleteMovie(movie._id))} >Delete</button>
+        <button onClick={() => onDeleteClick()} >Delete</button>
         </section>
         </>
     )

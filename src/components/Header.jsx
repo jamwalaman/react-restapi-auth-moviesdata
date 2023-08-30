@@ -1,5 +1,5 @@
 import {Link, useNavigate} from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import {logout, reset} from '../features/auth/authSlice'
 
 function Header() {
@@ -24,6 +24,7 @@ function Header() {
 					</button>
 					<div className='collapse navbar-collapse'>
 						<div className='navbar-nav'>
+							<Link to='/' className='nav-link'>Home</Link>
 							{user ? (
 								<>
 								<button onClick={onLogout}>Logout</button>
@@ -31,10 +32,8 @@ function Header() {
 								</>
 								) : (
 								<>
-								<Link to='/' className='nav-link'>Home</Link>
 								<Link to='/login' className='nav-link'>Login</Link>
 								<Link to='/register' className='nav-link'>Register</Link>
-								<Link to='/create-movie' className='nav-link'>Create Movie</Link>
 								</>
 								)}
 						</div>

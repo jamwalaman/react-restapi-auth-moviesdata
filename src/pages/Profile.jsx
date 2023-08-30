@@ -1,21 +1,18 @@
-import {useEffect} from 'react'
-import {useNavigate} from 'react-router-dom'
-import {useSelector, useDispatch} from 'react-redux'
+import {useEffect, useState} from 'react'
 import MovieItem from '../components/MovieItem'
-import {getMovies, reset} from '../features/movies/movieSlice'
+import axios from 'axios'
 
 function Profile() {
 
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const {user} = useSelector((state) => state.auth)
-    const {movies, isError, message} = useSelector((state) => state.movies)
+    const apiurl = 'https://nodejs-restapi.up.railway.app/api/movies/'
+    const [movies, setMovies] = useState([])
 
     useEffect(() => {
-        if (isError) {console.log(message)}
-        dispatch(getMovies())
-        return () => {dispatch(reset())}
-    }, [user, navigate, isError, message, dispatch])
+        axios
+        .get(apiurl)
+        .then((res) => {setMovies(res.data)})
+        .catch((err) => {console.log('Error in showing movies list')})
+    }, [])
 
     return (
         <>
