@@ -17,17 +17,19 @@ function Profile() {
     return (
         <>
         
-        <section>
-            {movies.length > 0 ? (
-            <div>
-                {movies.map( (movie) => (
-                <MovieItem key={movie._id} movie={movie} />
-                ))}
+        <div className='continer'>
+            <div className='row'>
+                <div className='col-md-8 m-auto'>
+                    {movies.length > 0 ? (
+                        <div>
+                            {movies.map( (movie) => (
+                            <MovieItem key={movie._id} movie={movie} />
+                            ))}
+                        </div>
+                        ) : (<p>No movies entered</p>)}
+                </div>
             </div>
-            ) : (
-            <p>No movies entered</p>
-            )}
-        </section>
+        </div>
         </>
     )
 

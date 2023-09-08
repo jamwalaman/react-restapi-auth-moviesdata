@@ -2,6 +2,11 @@ import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import {login, reset} from '../features/auth/authSlice'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 function Login() {
 
@@ -30,49 +35,47 @@ function Login() {
     return (
         <>
 
-        <h1>Login</h1>
+        <Container>
+            <Row>
+                <Col md={6} className='m-auto'>
+                <h1>Login</h1>
+                <Form onSubmit={onSubmit}>
+                    <Form.Group className='mb-3' controlId='emailLogin'>
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control
+                            className={ `${isError && JSON.parse(message).emailLogin ? 'is-invalid' : ''}` }
+                            aria-describedby='validationEmail'
+                            type='email'
+                            name='emailLogin'
+                            value={emailLogin}
+                            placeholder='Your email'
+                            onChange={onChange}
+                        />
+                        {isError && JSON.parse(message).emailLogin &&
+                        <Form.Control.Feedback id='validationEmail' type='invalid'>{JSON.parse(message).emailLogin.msg}</Form.Control.Feedback>}
+                    </Form.Group>
+                    <Form.Group className='mb-3' controlId='passwordLogin'>
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            className={ `${isError && JSON.parse(message).passwordLogin ? 'is-invalid' : ''}` }
+                            aria-describedby='validationPass'
+                            type='password'
+                            name='passwordLogin'
+                            value={passwordLogin}
+                            placeholder='Your password'
+                            onChange={onChange}
+                        />
+                        {isError && JSON.parse(message).passwordLogin &&
+                        <Form.Control.Feedback id='validationPass' type='invalid'>{JSON.parse(message).passwordLogin.msg}</Form.Control.Feedback>}
+                    </Form.Group>
+                    {isError && JSON.parse(message).authfail &&
+                    <p type='invalid'>{JSON.parse(message).authfail}</p>}
+                    <Button type='submit'>Login</Button>
+                </Form>
+                </Col>
+            </Row>
+        </Container>
 
-        <form onSubmit={onSubmit}>
-
-            <div className='row mb-3'>
-                <label htmlFor='email' className='col-sm-2 col-form-label'>Email</label>
-                <div className='col-sm-10'>
-                    <input
-                    type='email'
-                    className={ `form-control ${isError && JSON.parse(message).emailLogin ? 'is-invalid' : ''}` }
-                    id='emailLogin'
-                    name='emailLogin'
-                    value={emailLogin}
-                    aria-describedby='validationFeedbackEmail'
-                    placeholder='Enter email'
-                    onChange={onChange}
-                    />
-                    { isError && JSON.parse(message).emailLogin &&
-                    (<div id='validationFeedbackEmail' className='invalid-feedback'>{JSON.parse(message).emailLogin.msg}</div>) }
-                </div>
-            </div>
-            <div className='row mb-3'>
-                <label htmlFor='password' className='col-sm-2 col-form-label'>Password</label>
-                <div className='col-sm-10'>
-                    <input
-                    type='password'
-                    className={ `form-control ${isError && JSON.parse(message).passwordLogin ? 'is-invalid' : ''}` }
-                    id='passwordLogin'
-                    name='passwordLogin'
-                    value={passwordLogin}
-                    aria-describedby='validationFeedbackPassword'
-                    placeholder='Enter password'
-                    onChange={onChange}
-                    />
-                    { isError && JSON.parse(message).passwordLogin &&
-                    (<div id='validationFeedbackPassword' className='invalid-feedback'>{JSON.parse(message).passwordLogin.msg}</div>) }
-                </div>
-            </div>
-            { isError && JSON.parse(message).authfail && (<p>{JSON.parse(message).authfail}</p>) }
-            <button type='submit' className='btn btn-primary'>Submit</button>
-
-        </form>
-        
         </>
     )
 

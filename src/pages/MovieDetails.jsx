@@ -3,6 +3,9 @@ import {useDispatch, useSelector} from 'react-redux'
 import {useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
 import {deleteMovie, reset} from '../features/movies/movieSlice'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 const apiurl = 'https://nodejs-restapi.up.railway.app/api/movies/'
 
@@ -32,12 +35,16 @@ function MovieDetails() {
 
     return (
         <>
-        <section>
-        <h3>{movie.title}</h3>
-        <p>Directed by {movie.director}</p>
-        <p>{movie.synopsis}</p>
-        <button onClick={() => onDeleteClick()} >Delete</button>
-        </section>
+        <Container>
+            <Row>
+                <Col md={8} className='m-auto'>
+                <h3>{movie.title}</h3>
+                <p>Directed by {movie.director}</p>
+                <p>{movie.synopsis}</p>
+                <button onClick={() => onDeleteClick()} >Delete</button>
+                </Col>
+            </Row>
+        </Container>
         </>
     )
 

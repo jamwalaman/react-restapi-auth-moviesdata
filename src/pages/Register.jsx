@@ -2,6 +2,11 @@ import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import {register, reset} from '../features/auth/authSlice'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 function Register() {
 
@@ -29,67 +34,64 @@ function Register() {
 
     return (
         <>
-        <h1>Register to add your fav movies</h1>
-        <form onSubmit={onSubmit}>
 
-            <div className='row mb-3'>
-                <label htmlFor='username' className='col-sm-2 col-form-label'>Username</label>
-                <div className='col-sm-10'>
-                    <input
-                        type='text'
-                        className={ `form-control ${isError && JSON.parse(message).name ? 'is-invalid' : ''}` }
-                        id='name'
-                        name='name'
-                        value={name}
-                        aria-describedby='validationFeedbackName'
-                        placeholder='Enter username'
-                        onChange={onChange}
-                    />
-                    {isError && JSON.parse(message).name &&
-                    (<div id='validationFeedbackName' className='invalid-feedback'>{JSON.parse(message).name.msg}</div>) }
-                </div>
-            </div>
-            <div className='row mb-3'>
-                <label htmlFor='email' className='col-sm-2 col-form-label'>Email</label>
-                <div className='col-sm-10'>
-                    <input
-                    type='email'
-                    className={
-                        `form-control ${isError && (JSON.parse(message).email || JSON.parse(message).regfail) ? 'is-invalid' : ''}` 
-                    }
-                    id='email'
-                    name='email'
-                    value={email}
-                    aria-describedby='validationFeedbackEmail'
-                    placeholder='Enter email'
-                    onChange={onChange}
-                    />
-                    { isError && JSON.parse(message).email &&
-                    (<div id='validationFeedbackEmail' className='invalid-feedback'>{JSON.parse(message).email.msg}</div>) }
-                    {isError && JSON.parse(message).regfail &&
-                    (<div id='validationFeedbackEmail' className='invalid-feedback'>{JSON.parse(message).regfail}</div>) }
-                </div>
-            </div>
-            <div className='row mb-3'>
-                <label htmlFor='password' className='col-sm-2 col-form-label'>Password</label>
-                <div className='col-sm-10'>
-                    <input
-                    type='password'
-                    className={ `form-control ${isError && JSON.parse(message).password ? 'is-invalid' : ''}` }
-                    id='password'
-                    name='password'
-                    aria-describedby='validationFeedbackPassword'
-                    value={password}
-                    placeholder='Enter a password'
-                    onChange={onChange}
-                    />
-                    {isError && JSON.parse(message).password &&
-                    (<div id='validationFeedbackPassword' className='invalid-feedback'>{JSON.parse(message).password.msg}</div>) }
-                </div>
-            </div>
-            <button type='submit' className='btn btn-primary'>Submit</button>
+        <Container>
+            <Row>
+                <Col md={6} className='m-auto'>
+                <h1>Register to add your fav movies</h1>
 
-        </form>
+                    <Form onSubmit={onSubmit}>
+                        <Form.Group className='mb-3' controlId='username'>
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control
+                                type='text'
+                                className={`${isError && JSON.parse(message).name ? 'is-invalid' : ''}`}
+                                name='name'
+                                value={name}
+                                aria-describedby='validationName'
+                                placeholder='Enter username'
+                                onChange={onChange}
+                            />
+                            {isError && JSON.parse(message).name &&
+                            <Form.Control.Feedback id='validationName' type='invalid'>{JSON.parse(message).name.msg}</Form.Control.Feedback>}
+                        </Form.Group>
+                        <Form.Group className='mb-3' controlId='email'>
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control
+                                className={ `${isError && (JSON.parse(message).email || JSON.parse(message).regfail) ? 'is-invalid' : ''}` }
+                                aria-describedby='validationEmail'
+                                type='email'
+                                name='email'
+                                value={email}
+                                placeholder='Enter email'
+                                onChange={onChange}
+                            />
+                            {isError && JSON.parse(message).email &&
+                            <Form.Control.Feedback id='validationEmail' type='invalid'>{JSON.parse(message).email.msg}</Form.Control.Feedback>}
+                            {isError && JSON.parse(message).regfail &&
+                            <Form.Control.Feedback id='validationEmail' type='invalid'>{JSON.parse(message).regfail}</Form.Control.Feedback>}
+                        </Form.Group>
+                        <Form.Group className='mb-3' controlId='password'>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control
+                                className={ `${isError && JSON.parse(message).password ? 'is-invalid' : ''}` }
+                                aria-describedby='validationPass'
+                                type='password'
+                                name='password'
+                                value={password}
+                                placeholder='Enter password'
+                                onChange={onChange}
+                            />
+                            {isError && JSON.parse(message).password &&
+                            <Form.Control.Feedback id='validationPass' type='invalid'>{JSON.parse(message).password.msg}</Form.Control.Feedback>}
+                        </Form.Group>
+                        <Button type='submit'>Register</Button>
+                    </Form>
+
+                </Col>
+            </Row>
+        </Container>
+
         </>
     )
 

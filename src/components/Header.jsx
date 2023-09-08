@@ -1,6 +1,9 @@
 import {Link, useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import {logout, reset} from '../features/auth/authSlice'
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 function Header() {
 
@@ -14,37 +17,34 @@ function Header() {
       }
 
     return (
-        <header>
-			<nav className='navbar navbar-expand-lg bg-body-tertiary'>
-				<div className='container'>
 
-					<Link to='/' className='navbar-brand'>Fav Movies</Link>
-					<button className='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation'>
-						<span className='navbar-toggler-icon'></span>
-					</button>
-					<div className='collapse navbar-collapse'>
-						<div className='navbar-nav'>
-							<Link to='/' className='nav-link'>Home</Link>
-							{user ? (
-								<>
-								<button onClick={onLogout}>Logout</button>
-								<Link to='/create-movie' className='nav-link'>Create Movie</Link>
-								</>
-								) : (
-								<>
-								<Link to='/login' className='nav-link'>Login</Link>
-								<Link to='/register' className='nav-link'>Register</Link>
-								</>
-								)}
-						</div>
-					</div>		
-						
-				</div>
-			</nav>
+		<Navbar expand='lg' className='bg-body-tertiary'>
+			<Container>
 
-        </header>
+				<Navbar.Brand href='#home'>Fav Movies</Navbar.Brand>
+				<Navbar.Toggle aria-controls='basic-navbar-nav' />
+				<Navbar.Collapse id='basic-navbar-nav'>
+					<Nav className='me-auto'>
+						<Link to='/' className='nav-link'>Home</Link>
+						{user ? (
+							<>
+							<Link to='/create-movie' className='nav-link'>Create Movie</Link>
+							<Navbar.Text>Hi {user && user.name}</Navbar.Text>
+							<button onClick={onLogout}>Logout</button>
+							</>
+						) : (
+							<>
+							<Link to='/login' className='nav-link'>Login</Link>
+							<Link to='/register' className='nav-link'>Register</Link>
+							</>
+						)}
+					</Nav>
+				</Navbar.Collapse>
+
+			</Container>
+		</Navbar>
+
     )
-
 }
 
 export default Header
