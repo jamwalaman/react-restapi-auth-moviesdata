@@ -1,9 +1,7 @@
 import {Link, useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import {logout, reset} from '../features/auth/authSlice'
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import {Container, Nav, Navbar} from 'react-bootstrap'
 
 function Header() {
 
@@ -18,7 +16,7 @@ function Header() {
 
     return (
 
-		<Navbar expand='lg' className='bg-body-tertiary'>
+		<Navbar expand='lg' className='bg-body-tertiary mb-4'>
 			<Container>
 
 				<Navbar.Brand href='#home'>Fav Movies</Navbar.Brand>
