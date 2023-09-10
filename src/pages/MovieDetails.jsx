@@ -3,9 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
 import {deleteMovie, reset} from '../features/movies/movieSlice'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import {Container, Row, Col} from 'react-bootstrap'
 
 const apiurl = 'https://nodejs-restapi.up.railway.app/api/movies/'
 

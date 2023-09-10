@@ -2,11 +2,7 @@ import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import {login, reset} from '../features/auth/authSlice'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import {Container, Row, Col, Form} from 'react-bootstrap'
 
 function Login() {
 
@@ -70,7 +66,7 @@ function Login() {
                     </Form.Group>
                     {isError && JSON.parse(message).authfail &&
                     <p type='invalid'>{JSON.parse(message).authfail}</p>}
-                    <Button type='submit'>Login</Button>
+                    <button type='submit' className='button'>Login</button>
                 </Form>
                 </Col>
             </Row>

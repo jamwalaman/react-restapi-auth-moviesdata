@@ -1,14 +1,51 @@
 @import '~bootstrap/scss/bootstrap';
 
+:root {
+    --purple-main: #cc99ff;
+    --purple-dark: #7300e6;
+    --purple-darker: #400080;
+    --red-invalid: #cc0000;
+}
+
 body {
     font-family: 'Open Sans'
 }
 
 a {
     text-decoration: none;
-    color: #cc99ff;
+    color: var(--purple-main);
 }
 
 .container.movieslist .card {
     border-width: 0
+}
+
+.invalid-feedback {
+    color: var(--red-invalid);
+}
+.form-control {
+    border-radius: 0;
+}
+.form-control:focus, .form-control.is-invalid:focus {
+    box-shadow: none;
+    border-color: var(--purple-darker)
+}
+.form-control.is-invalid {
+    background-image: none;
+    border-color: var(--red-invalid);
+}
+
+.button {
+    border: none;
+    color: #fff;
+    padding: 10px 18px;
+    font-size: 1.1rem;
+    background-color: var(--purple-main);
+    transition-duration: 0.4s;
+}
+.button:hover {
+    background-color: var(--purple-dark);
+}
+.button:active {
+    background-color: var(--purple-darker);
 }
