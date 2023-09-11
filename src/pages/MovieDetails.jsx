@@ -11,7 +11,7 @@ function MovieDetails() {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {isSuccess} = useSelector((state) => state.movies)
+    const {isSuccess, isError, message} = useSelector((state) => state.movies)
     const [movie, setMovie] = useState({})
     const {id} = useParams()
 
@@ -40,6 +40,7 @@ function MovieDetails() {
                 <p>Directed by {movie.director}</p>
                 <p>{movie.synopsis}</p>
                 <button onClick={() => onDeleteClick()} >Delete</button>
+                {isError && <p>{message}</p>}
                 </Col>
             </Row>
         </Container>
