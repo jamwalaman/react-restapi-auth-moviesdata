@@ -1,7 +1,7 @@
 import {Link, useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import {logout, reset} from '../features/auth/authSlice'
-import {Container, Nav, Navbar} from 'react-bootstrap'
+import {Container, Nav, Navbar, NavDropdown, Button} from 'react-bootstrap'
 
 function Header() {
 
@@ -16,7 +16,7 @@ function Header() {
 
     return (
 
-		<Navbar expand='lg' className='bg-body-tertiary mb-4'>
+		<Navbar expand='lg' className='navHeader mb-4'>
 			<Container>
 
 				<Navbar.Brand href='#home'>Fav Movies</Navbar.Brand>
@@ -27,8 +27,9 @@ function Header() {
 						{user ? (
 							<>
 							<Link to='/create-movie' className='nav-link'>Create Movie</Link>
-							<Navbar.Text>Hi {user && user.name}</Navbar.Text>
-							<button onClick={onLogout}>Logout</button>
+							<NavDropdown title={`Hi ${user && user.name}`}>
+								<Button variant='link' onClick={onLogout}>Logout</Button>
+							</NavDropdown>
 							</>
 						) : (
 							<>

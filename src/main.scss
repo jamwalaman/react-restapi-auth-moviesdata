@@ -4,6 +4,7 @@
     --purple-main: #cc99ff;
     --purple-dark: #7300e6;
     --purple-darker: #400080;
+    --purple-text: #ccccff;
     --red-invalid: #cc0000;
 }
 
@@ -16,8 +17,57 @@ a {
     color: var(--purple-main);
 }
 
+.navbar {
+    --bs-navbar-toggler-icon-bg: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(204,204,255)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    padding: 0;
+  }
+.navbar .btn.btn-link {
+    color: #fff;
+    text-decoration: none;
+}
+.navHeader {
+    background-color: var(--purple-dark);
+}
+.navHeader a {
+    color: var(--purple-text);
+}
+.navHeader a:hover, .navHeader a:focus {
+    color: #fff;
+}
+.navbar-nav .nav-link.show {
+    color: var(--purple-text);
+}
+.navbar-toggler {
+    border: none;
+}
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+.navbar-nav .dropdown-menu {
+    border-radius: 0;
+    border-color: rgba(0,0,0,0);
+    background-color: var(--purple-main);
+}
+.dropdown-menu {
+    --bs-dropdown-min-width: 5.85rem
+}
+@media (min-width: 992px) {
+    .nav-link {
+        height: 70px;
+        display: flex;
+        align-items: center;
+    }
+    .navbar-nav .nav-link.show {
+        color: #fff;
+        background-color: var(--purple-darker);
+    }
+    .navbar-nav .dropdown-menu {
+        top: 67px
+    }
+}
+
 .container.movieslist .card {
-    border-width: 0
+    border-width: 0;
 }
 
 .invalid-feedback {
