@@ -1,15 +1,14 @@
 import axios from 'axios'
-
-const API_URL = 'https://nodejs-restapi.up.railway.app/api/users/'
+import { apiUrl } from '../../global'
 
 const register = async (userData) => {
-  const response = await axios.post(API_URL, userData)
+  const response = await axios.post(`${apiUrl}/api/users`, userData)
   if (response.data) { localStorage.setItem('user', JSON.stringify(response.data)) }
   return response.data
 }
 
 const login = async (userData) => {
-  const response = await axios.post(API_URL + 'login', userData)
+  const response = await axios.post(`${apiUrl}/api/users/login`, userData)
   if (response.data) {localStorage.setItem('user', JSON.stringify(response.data))}
 
   return response.data

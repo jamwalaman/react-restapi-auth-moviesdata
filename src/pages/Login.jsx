@@ -66,7 +66,7 @@ function Login() {
                     </Form.Group>
                     {isError && JSON.parse(message).authfail &&
                     <p type='invalid'>{JSON.parse(message).authfail}</p>}
-                    <button type='submit' className='button'>Login</button>
+                    <button type='submit' className='button primary'>Login</button>
                 </Form>
                 </Col>
             </Row>

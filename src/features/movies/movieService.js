@@ -1,17 +1,16 @@
 import axios from 'axios'
-
-const API_URL = 'https://nodejs-restapi.up.railway.app/api/movies/'
+import { apiUrl } from '../../global'
 
 const createMovie = async (movieData, token) => {
     const config = {
         headers: {Authorization: `Bearer ${token}`,},
     }
-    const response = await axios.post(API_URL, movieData, config)
+    const response = await axios.post(`${apiUrl}/api/movies`, movieData, config)
     return response.data
 }
 
 const getMovies = async () => {
-    const response = await axios.get(API_URL)
+    const response = await axios.get(`${apiUrl}/api/movies`)
     return response.data
 }
 
@@ -19,7 +18,7 @@ const deleteMovie = async (movieId, token) => {
     const config = {
         headers: {Authorization: `Bearer ${token}`,},
     }
-    const response = await axios.delete(API_URL + movieId, config)
+    const response = await axios.delete(`${apiUrl}/api/movies/${movieId}`, config)
     return response.data
 }
 

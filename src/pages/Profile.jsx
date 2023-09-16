@@ -2,15 +2,15 @@ import {useEffect, useState} from 'react'
 import MovieItem from '../components/MovieCard'
 import axios from 'axios'
 import {Container, Row} from 'react-bootstrap'
+import { apiUrl } from '../global'
 
 function Profile() {
 
-    const apiurl = 'https://nodejs-restapi.up.railway.app/api/movies/'
     const [movies, setMovies] = useState([])
 
     useEffect(() => {
         axios
-        .get(apiurl)
+        .get(`${apiUrl}/api/movies`)
         .then((res) => {setMovies(res.data)})
         .catch((err) => {console.log('Error in showing movies list')})
     }, [])

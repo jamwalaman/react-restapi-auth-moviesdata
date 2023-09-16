@@ -78,7 +78,7 @@ function CreateMovieForm() {
                             {isError && JSON.parse(message).synopsis &&
                             <Form.Control.Feedback id='validationTitle' type='invalid'>{JSON.parse(message).synopsis.msg}</Form.Control.Feedback>}
                         </Form.Group>
-                        <button type='submit' className='button'>Add</button>
+                        <button type='submit' className='button primary'>Add</button>
                     </Form>
 
                 </Col>

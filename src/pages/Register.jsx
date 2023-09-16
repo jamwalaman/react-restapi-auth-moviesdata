@@ -81,7 +81,7 @@ function Register() {
                             {isError && JSON.parse(message).password &&
                             <Form.Control.Feedback id='validationPass' type='invalid'>{JSON.parse(message).password.msg}</Form.Control.Feedback>}
                         </Form.Group>
-                        <button type='submit' className='button'>Register</button>
+                        <button type='submit' className='button primary'>Register</button>
                     </Form>
 
                 </Col>

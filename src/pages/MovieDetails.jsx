@@ -4,8 +4,7 @@ import {useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
 import {deleteMovie, reset} from '../features/movies/movieSlice'
 import {Container, Row, Col} from 'react-bootstrap'
-
-const apiurl = 'https://nodejs-restapi.up.railway.app/api/movies/'
+import { apiUrl } from '../global'
 
 function MovieDetails() {
 
@@ -17,7 +16,7 @@ function MovieDetails() {
 
     useEffect(() => {
         axios
-        .get(`${apiurl}${id}`)
+        .get(`${apiUrl}/api/movies/${id}`)
         .then((res) => {setMovie(res.data)})
         .catch((err) => {console.log('Error from MovieDeatils')})
     }, [id])
@@ -39,7 +38,7 @@ function MovieDetails() {
                 <h3>{movie.title}</h3>
                 <p>Directed by {movie.director}</p>
                 <p>{movie.synopsis}</p>
-                <button onClick={() => onDeleteClick()} >Delete</button>
+                <button onClick={() => onDeleteClick()} className='button danger' >Delete</button>
                 {isError && <p>{message}</p>}
                 </Col>
             </Row>
