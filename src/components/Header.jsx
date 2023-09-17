@@ -19,7 +19,7 @@ function Header() {
 		<Navbar expand='lg' className='navHeader mb-4'>
 			<Container>
 
-				<Navbar.Brand href='#home'>Fav Movies</Navbar.Brand>
+				<Link to='/' className='navbar-brand'>Fav Movies</Link>
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />
 				<Navbar.Collapse id='basic-navbar-nav'>
 					<Nav className='me-auto'>

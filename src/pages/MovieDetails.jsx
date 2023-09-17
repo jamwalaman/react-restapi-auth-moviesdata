@@ -12,6 +12,7 @@ function MovieDetails() {
     const navigate = useNavigate()
     const {isSuccess, isError, message} = useSelector((state) => state.movies)
     const [movie, setMovie] = useState({})
+    const {user} = useSelector((state) => state.auth)
     const {id} = useParams()
 
     useEffect(() => {
@@ -38,7 +39,10 @@ function MovieDetails() {
                 <h3>{movie.title}</h3>
                 <p>Directed by {movie.director}</p>
                 <p>{movie.synopsis}</p>
-                <button onClick={() => onDeleteClick()} className='button danger' >Delete</button>
+                
+                {user && movie.user === user.userID && (
+                    <button onClick={() => onDeleteClick()} className='button danger' >Delete</button>
+                )}
                 {isError && <p>{message}</p>}
                 </Col>
             </Row>
