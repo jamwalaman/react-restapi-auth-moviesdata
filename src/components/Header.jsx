@@ -1,21 +1,18 @@
-import {Link, useNavigate} from 'react-router-dom'
-import {useSelector, useDispatch} from 'react-redux'
-import {logout, reset} from '../features/auth/authSlice'
-import {Container, Nav, Navbar, NavDropdown, Button} from 'react-bootstrap'
+import {useState, useEffect} from 'react'
+import {Link, useLocation} from 'react-router-dom'
+import {Container, Nav, Navbar} from 'react-bootstrap'
+import NavLinksList from './NavLinksList'
 
 function Header() {
 
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const { user } = useSelector((state) => state.auth)
-    const onLogout = () => {
-        dispatch(logout())
-        dispatch(reset())
-        navigate('/')
-      }
+	const [isOpen, setIsOpen] = useState(false);
+	const location = useLocation();
+	// Close the dropdown when the route changes on mobile
+	useEffect(() => {setIsOpen(false)}, [location])
+	const toggleDropdown = () => {setIsOpen(!isOpen)}
 
     return (
-
+		<>
 		<Navbar expand='lg' className='navHeader mb-4'>
 			<Container>
 
@@ -23,27 +20,32 @@ function Header() {
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />
 				<Navbar.Collapse id='basic-navbar-nav'>
 					<Nav className='me-auto'>
-						<Link to='/' className='nav-link'>Home</Link>
-						{user ? (
-							<>
-							<Link to='/create-movie' className='nav-link'>Create Movie</Link>
-							<NavDropdown title={`Hi ${user && user.name}`}>
-								<Button variant='link' onClick={onLogout}>Logout</Button>
-							</NavDropdown>
-							</>
-						) : (
-							<>
-							<Link to='/login' className='nav-link'>Login</Link>
-							<Link to='/register' className='nav-link'>Register</Link>
-							</>
-						)}
+						<NavLinksList/>
 					</Nav>
 				</Navbar.Collapse>
 
 			</Container>
 		</Navbar>
-
+		<div className='mobile-nav-bg p-2 mb-4'>
+			<div className='mobile-nav'>
+				<Link to='/' className='navbar-brand'>Fav Movies</Link>
+				<button className='drop-toggle' onClick={toggleDropdown}>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+						<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+					</svg>
+				</button>
+				{isOpen && (
+					<div className='drop-menu'>
+					<Nav className='me-auto navbar-nav'>
+						<NavLinksList/>
+					</Nav>
+					</div>
+				)}
+			</div>
+		</div>
+		</>	
     )
+	
 }
 
 export default Header
