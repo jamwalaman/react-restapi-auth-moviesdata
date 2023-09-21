@@ -21,7 +21,7 @@ function NavLinksList() {
 		{user ? (
 			<>
 			<Link to='/create-movie' className='nav-link'>Create Movie</Link>
-			<Button variant='link' onClick={onLogout}>{`Logout (${user && user.name})`}</Button>
+			<Button className='nav-link' onClick={onLogout}>{`Logout (${user && user.name})`}</Button>
 			</>
 		) : (
 			<>
