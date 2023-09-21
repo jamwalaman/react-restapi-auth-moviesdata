@@ -1,16 +1,15 @@
 import axios from 'axios'
 import {useDispatch, useSelector} from 'react-redux'
 import {useEffect, useState} from 'react'
-import {useParams, useNavigate} from 'react-router-dom'
-import {deleteMovie, reset} from '../features/movies/movieSlice'
+import {useParams} from 'react-router-dom'
+import {deleteMovie} from '../features/movies/movieSlice'
 import {Container, Row, Col} from 'react-bootstrap'
 import { apiUrl } from '../global'
 
 function MovieDetails() {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const {isSuccess, isError, message} = useSelector((state) => state.movies)
+    const {isError, message} = useSelector((state) => state.movies)
     const [movie, setMovie] = useState({})
     const {user} = useSelector((state) => state.auth)
     const {id} = useParams()
@@ -21,11 +20,6 @@ function MovieDetails() {
         .then((res) => {setMovie(res.data)})
         .catch((err) => {console.log('Error from MovieDeatils')})
     }, [id])
-
-    useEffect(() => {
-        if(isSuccess) {navigate('/')}
-        dispatch(reset())
-    }, [isSuccess, navigate, dispatch] )
 
     const onDeleteClick = () =>{
         dispatch(deleteMovie(movie._id))
@@ -40,7 +34,7 @@ function MovieDetails() {
                 <p>Directed by {movie.director}</p>
                 <p>{movie.synopsis}</p>
                 
-                {user && movie.user === user.userID && (
+                {user && user.userID && movie.user === user.userID && (
                     <button onClick={() => onDeleteClick()} className='button danger' >Delete</button>
                 )}
                 {isError && <p>{message}</p>}

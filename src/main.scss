@@ -41,6 +41,9 @@ button.nav-link {
     text-align: left;
     color: var(--purple-text);
 }
+button.nav-link:hover, :not(.btn-check) + button.nav-link:active {
+    background-color: transparent;
+}
 button.drop-toggle {
     background: none;
     border-width: 0;
@@ -64,7 +67,7 @@ button.drop-toggle .bi-list {
 .navbar .btn.btn-link, .mobile-nav a, .mobile-nav .nav-link:focus, .mobile-nav .navbar-brand:hover, .mobile-nav .navbar-brand:focus {
     color: var(--purple-text);
 }
-.navHeader a:hover, .navHeader a:focus {
+.navHeader a:hover, .navHeader a:focus, button.nav-link:hover {
     color: #fff;
 }
 .navbar-toggler {
