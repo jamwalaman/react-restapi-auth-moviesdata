@@ -119,6 +119,17 @@ button.drop-toggle .bi-list {
     background-color: #800000;
 }
 
+.button, .modal-content {
+    border-radius: 0;
+}
+.modal-header {
+    border-bottom: none;
+}
+.modal-footer {
+    justify-content: start;
+    border-top: none;
+}
+
 @media (min-width: 992px) {
     .navHeader {
         display: block;

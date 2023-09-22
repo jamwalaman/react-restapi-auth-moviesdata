@@ -1,15 +1,19 @@
 import axios from 'axios'
 import {useDispatch, useSelector} from 'react-redux'
 import {useEffect, useState} from 'react'
-import {useParams} from 'react-router-dom'
-import {deleteMovie} from '../features/movies/movieSlice'
-import {Container, Row, Col} from 'react-bootstrap'
+import {useParams, useNavigate} from 'react-router-dom'
+import {deleteMovie, reset} from '../features/movies/movieSlice'
+import {Container, Row, Col, Button, Modal} from 'react-bootstrap'
 import { apiUrl } from '../global'
 
 function MovieDetails() {
 
     const dispatch = useDispatch()
-    const {isError, message} = useSelector((state) => state.movies)
+    const navigate = useNavigate()
+    const [show, setShow] = useState(false)
+    const handleClose = () => setShow(false)
+    const handleShow = () => setShow(true)
+    const {isSuccess, isError, message} = useSelector((state) => state.movies)
     const [movie, setMovie] = useState({})
     const {user} = useSelector((state) => state.auth)
     const {id} = useParams()
@@ -20,6 +24,12 @@ function MovieDetails() {
         .then((res) => {setMovie(res.data)})
         .catch((err) => {console.log('Error from MovieDeatils')})
     }, [id])
+
+    // Redirect user to home page, when movie is deleted successfully
+    useEffect(() => {
+        if(isSuccess) {navigate('/')}
+        dispatch(reset())
+    }, [isSuccess, navigate, dispatch] )
 
     const onDeleteClick = () =>{
         dispatch(deleteMovie(movie._id))
@@ -34,8 +44,18 @@ function MovieDetails() {
                 <p>Directed by {movie.director}</p>
                 <p>{movie.synopsis}</p>
                 
-                {user && user.userID && movie.user === user.userID && (
-                    <button onClick={() => onDeleteClick()} className='button danger' >Delete</button>
+                {user && movie.user === user.userID && (
+                    <>
+                    <Button className='button danger' onClick={handleShow}>Delete</Button>
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton><Modal.Title>Delete movie</Modal.Title></Modal.Header>
+                        <Modal.Body>Please confirm you want to delete the movie: {movie.title}</Modal.Body>
+                        <Modal.Footer>
+                            <Button className='button primary' onClick={handleClose}>Close</Button>
+                            <Button className='button danger' onClick={() => onDeleteClick()}>Delete</Button>
+                        </Modal.Footer>
+                    </Modal>
+                    </>
                 )}
                 {isError && <p>{message}</p>}
                 </Col>
