@@ -130,6 +130,16 @@ button.drop-toggle .bi-list {
     border-top: none;
 }
 
+.alert.alert-primary {
+    border: none;
+    border-radius: 0;
+    background-color: var(--purple-main);
+    color: #fff;
+}
+.alert.alert-primary .btn-close:focus {
+    box-shadow: none;
+}
+
 @media (min-width: 992px) {
     .navHeader {
         display: block;

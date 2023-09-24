@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import "@fontsource/open-sans"
 import './main.scss'
 import Header from './components/Header'
+import AlertMsg from './components/AlertMsg'
 import Profile from './pages/Profile'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -14,6 +15,7 @@ function App() {
       <Router>
         <div className="App">
           <Header />
+          <AlertMsg />
             <Routes>
               <Route path='/' element={<Profile/>} />
               <Route path='/login' element={<Login/>} />

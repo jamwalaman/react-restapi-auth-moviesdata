@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
-import {login, reset} from '../features/auth/authSlice'
+import {login} from '../features/auth/authSlice'
 import {Container, Row, Col, Form} from 'react-bootstrap'
 
 function Login() {
@@ -13,11 +13,8 @@ function Login() {
     const {user, isError, isSuccess, message} = useSelector((state) => state.auth)
 
     useEffect(() => {
-        if(isSuccess || user) {
-            dispatch(reset())
-            navigate('/')
-        }
-    }, [user, isSuccess, message, navigate, dispatch])
+        if(isSuccess || user) {navigate('/')}
+    }, [user, isSuccess, navigate])
    
     const onChange = (e) =>{
         setFormData((prevState) => ({ ...prevState, [e.target.name]: e.target.value }))

@@ -8,6 +8,7 @@ const initialState = {
     isError: false,
     isSuccess: false,
     isLoading: false,
+    alert: '',
     message: ''
 }
 
@@ -40,6 +41,7 @@ export const authSlice = createSlice({
             state.isLoading = false
             state.isSuccess = false
             state.isError = false
+            state.alert = ''
             state.message = ''
         },
     },
@@ -65,6 +67,7 @@ export const authSlice = createSlice({
         .addCase(login.fulfilled, (state, action) =>{
             state.isLoading = false
             state.isSuccess = true
+            state.alert = `Login successful. Welcome ${action.payload.name}`
             state.user = action.payload
         })
         .addCase(login.rejected, (state, action) => {
@@ -73,7 +76,10 @@ export const authSlice = createSlice({
             state.message = action.payload
             state.user = null
         })
-        .addCase(logout.fulfilled, (state) => {state.user = null})
+        .addCase(logout.fulfilled, (state) => {
+            state.user = null
+            state.alert = 'Logged out'
+        })
     },
 
 })
