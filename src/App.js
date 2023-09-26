@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import "@fontsource/open-sans"
 import './main.scss'
 import Header from './components/Header'
-import AlertMsg from './components/AlertMsg'
+import AlertMsgUser from './components/AlertMsgUser'
 import Profile from './pages/Profile'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -15,7 +15,7 @@ function App() {
       <Router>
         <div className="App">
           <Header />
-          <AlertMsg />
+          <AlertMsgUser />
             <Routes>
               <Route path='/' element={<Profile/>} />
               <Route path='/login' element={<Login/>} />

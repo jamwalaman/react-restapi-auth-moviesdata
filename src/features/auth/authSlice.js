@@ -8,8 +8,8 @@ const initialState = {
     isError: false,
     isSuccess: false,
     isLoading: false,
-    alert: '',
-    message: ''
+    message: '',
+    alertMsg: ''
 }
 
 export const register = createAsyncThunk('auth/register', async(user, thunkAPI) => {
@@ -41,7 +41,6 @@ export const authSlice = createSlice({
             state.isLoading = false
             state.isSuccess = false
             state.isError = false
-            state.alert = ''
             state.message = ''
         },
     },
@@ -54,6 +53,7 @@ export const authSlice = createSlice({
             state.isLoading = false
             state.isSuccess = true
             state.user = action.payload
+            state.alertMsg = `Registeration successful. Welcome ${action.payload.name}`
         })
         .addCase(register.rejected, (state, action) => {
             state.isLoading = false
@@ -67,8 +67,8 @@ export const authSlice = createSlice({
         .addCase(login.fulfilled, (state, action) =>{
             state.isLoading = false
             state.isSuccess = true
-            state.alert = `Login successful. Welcome ${action.payload.name}`
             state.user = action.payload
+            state.alertMsg = `Login successful. Welcome ${action.payload.name}`
         })
         .addCase(login.rejected, (state, action) => {
             state.isLoading = false
@@ -78,7 +78,7 @@ export const authSlice = createSlice({
         })
         .addCase(logout.fulfilled, (state) => {
             state.user = null
-            state.alert = 'Logged out'
+            state.alertMsg = 'Logged out'
         })
     },
 
