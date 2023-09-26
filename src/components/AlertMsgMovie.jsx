@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Container, Row, Col, Alert} from 'react-bootstrap'
-import {reset} from '../features/auth/authSlice'
+import {reset} from '../features/movies/movieSlice'
 
-function AlertMsgUser() {
-    const {alertMsg} = useSelector((state) => state.auth)
+function AlertMsgMovie() {
+    const {alertMsg} = useSelector((state) => state.movies)
     const [show, setShow] = useState(false)
     const dispatch = useDispatch()
 
@@ -43,4 +43,4 @@ function AlertMsgUser() {
 
   }
 
-export default AlertMsgUser
+export default AlertMsgMovie

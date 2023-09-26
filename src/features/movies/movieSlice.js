@@ -7,7 +7,8 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: '',
-  movieID: null,
+  movieID: '',
+  alertMsg: ''
 }
 
 export const createMovie = createAsyncThunk('movies/create', async (movieData, thunkAPI) => {
@@ -37,7 +38,12 @@ export const movieSlice = createSlice({
   name: 'movie',
   initialState,
   reducers: {
-    reset: (state) => initialState
+    reset: (state) => {
+      state.isLoading = false
+      state.isSuccess = false
+      state.isError = false
+      state.message = ''
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -49,6 +55,7 @@ export const movieSlice = createSlice({
       state.isSuccess = true
       state.movies.push(action.payload)
       state.movieID = action.payload._id
+      state.alertMsg = 'Movie created'
     })
     .addCase(createMovie.rejected, (state, action) => {
       state.isLoading = false
@@ -62,6 +69,7 @@ export const movieSlice = createSlice({
       state.isLoading = false
       state.isSuccess = true
       state.movies = state.movies.filter((movie) => movie._id !== action.payload.id)
+      state.alertMsg = 'Movie deleted'
     })
     .addCase(deleteMovie.rejected, (state, action) => {
       state.isLoading = false

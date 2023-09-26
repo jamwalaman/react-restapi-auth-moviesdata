@@ -3,6 +3,7 @@ import "@fontsource/open-sans"
 import './main.scss'
 import Header from './components/Header'
 import AlertMsgUser from './components/AlertMsgUser'
+import AlertMsgMovie from './components/AlertMsgMovie'
 import Profile from './pages/Profile'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -16,6 +17,7 @@ function App() {
         <div className="App">
           <Header />
           <AlertMsgUser />
+          <AlertMsgMovie />
             <Routes>
               <Route path='/' element={<Profile/>} />
               <Route path='/login' element={<Login/>} />
