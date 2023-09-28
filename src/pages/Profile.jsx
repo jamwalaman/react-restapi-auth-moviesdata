@@ -1,23 +1,24 @@
-import {useEffect, useState} from 'react'
-import MovieItem from '../components/MovieCard'
-import axios from 'axios'
+import {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import {Container, Row} from 'react-bootstrap'
-import { apiUrl } from '../global'
+import {getMovies, reset} from '../features/movies/movieSlice'
+import MovieItem from '../components/MovieCard'
+import SpinnerLoading from '../components/SpinnerLoading'
 
 function Profile() {
 
-    const [movies, setMovies] = useState([])
+    const dispatch = useDispatch()
+    const {movies, isLoading} = useSelector((state) => state.movies)
 
     useEffect(() => {
-        axios
-        .get(`${apiUrl}/api/movies`)
-        .then((res) => {setMovies(res.data)})
-        .catch((err) => {console.log('Error in showing movies list')})
-    }, [])
+        dispatch(getMovies())
+        return () => {dispatch(reset())}
+      }, [dispatch])
+
+    if (isLoading) {return <SpinnerLoading />}
 
     return (
         <>
-
         <Container className='movieslist'>
             <Row xs={1} md={3} className='g-4'>
                 {movies.length > 0 ? (
@@ -27,7 +28,6 @@ function Profile() {
                     ) : (<p>No movies entered</p>)}
             </Row>
         </Container>
-
         </>
     )
 

@@ -1,23 +1,24 @@
 import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {createMovie, reset} from '../features/movies/movieSlice'
+import {createMovie} from '../features/movies/movieSlice'
 import {Container, Row, Col, Form} from 'react-bootstrap'
+import {reset} from '../features/movies/movieSlice'
 
 function CreateMovieForm() {
 
     const [formData, setFormData] = useState({ title:'', director: '', synopsis:''})
     const {title, director, synopsis} = formData
-    const {isSuccess, isError, message, movieID} = useSelector((state) => state.movies)
+    const {movieCreated, isError, message, movieID} = useSelector((state) => state.movies)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if(isSuccess) {
+        if(movieCreated) {
             navigate(`/movie/${movieID}`)
-            dispatch(reset())
+            return () => {dispatch(reset())}
         }
-    }, [isSuccess, movieID, navigate, dispatch] )
+    }, [movieCreated, movieID, navigate, dispatch] )
     
     const onChange = (e) =>{
         setFormData((prevState) => ({ ...prevState, [e.target.name]: e.target.value }))

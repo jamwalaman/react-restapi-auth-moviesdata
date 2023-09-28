@@ -6,10 +6,21 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
+  movieCreated: false,
+  movieDeleted: false,
   message: '',
   movieID: '',
   alertMsg: ''
 }
+
+export const getMovies = createAsyncThunk('movies/getAll', async (_, thunkAPI) => {
+  try {
+    return await movieService.getMovies()
+  } catch (error) {
+    const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
 
 export const createMovie = createAsyncThunk('movies/create', async (movieData, thunkAPI) => {
   try {
@@ -42,17 +53,33 @@ export const movieSlice = createSlice({
       state.isLoading = false
       state.isSuccess = false
       state.isError = false
+      state.movieCreated = false
+      state.movieDeleted = false
       state.message = ''
     },
   },
   extraReducers: (builder) => {
     builder
+    .addCase(getMovies.pending, (state) => {
+      state.isLoading = true
+    })
+    .addCase(getMovies.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.movies = action.payload
+    })
+    .addCase(getMovies.rejected, (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      state.message = action.payload
+    })
     .addCase(createMovie.pending, (state) => {
       state.isLoading = true
     })
     .addCase(createMovie.fulfilled, (state, action) => {
       state.isLoading = false
       state.isSuccess = true
+      state.movieCreated = true
       state.movies.push(action.payload)
       state.movieID = action.payload._id
       state.alertMsg = 'Movie created'
@@ -68,6 +95,7 @@ export const movieSlice = createSlice({
     .addCase(deleteMovie.fulfilled, (state, action) => {
       state.isLoading = false
       state.isSuccess = true
+      state.movieDeleted = true
       state.movies = state.movies.filter((movie) => movie._id !== action.payload.id)
       state.alertMsg = 'Movie deleted'
     })

@@ -2,7 +2,7 @@ import axios from 'axios'
 import {useDispatch, useSelector} from 'react-redux'
 import {useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
-import {deleteMovie, reset} from '../features/movies/movieSlice'
+import {deleteMovie} from '../features/movies/movieSlice'
 import {Container, Row, Col, Button, Modal} from 'react-bootstrap'
 import { apiUrl } from '../global'
 
@@ -13,7 +13,7 @@ function MovieDetails() {
     const [show, setShow] = useState(false)
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
-    const {isSuccess, isError, message} = useSelector((state) => state.movies)
+    const {isError, message, movieDeleted} = useSelector((state) => state.movies)
     const [movie, setMovie] = useState({})
     const {user} = useSelector((state) => state.auth)
     const {id} = useParams()
@@ -25,11 +25,10 @@ function MovieDetails() {
         .catch((err) => {console.log('Error from MovieDeatils')})
     }, [id])
 
-    // Redirect user to home page, when movie is deleted successfully
+    // Redirect user to home page, when movie is deleted successfully.
     useEffect(() => {
-        if(isSuccess) {navigate('/')}
-        dispatch(reset())
-    }, [isSuccess, navigate, dispatch] )
+        if(movieDeleted) {navigate('/')}
+    }, [movieDeleted, navigate] )
 
     const onDeleteClick = () =>{
         dispatch(deleteMovie(movie._id))
