@@ -1,37 +1,25 @@
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Container, Row, Col, Alert} from 'react-bootstrap'
-import {reset} from '../features/movies/movieSlice'
+import {resetAlert} from '../features/movies/movieSlice'
 
 function AlertMsgMovie() {
     const {alertMsg} = useSelector((state) => state.movies)
-    const [show, setShow] = useState(false)
     const dispatch = useDispatch()
+    const closeAlert = () => {dispatch(resetAlert())}
 
     useEffect(() => {
         if (alertMsg) {
-            setShow(true)
-            const timeoutId = setTimeout(() => {
-                setShow(false)
-                dispatch(reset())
-            }, 3000)
-            return () => clearTimeout(timeoutId)
+          const timeoutId = setTimeout(() => {closeAlert()}, 5000)
+          return () => clearTimeout(timeoutId)
         }
-    }, [alertMsg, dispatch])
-    // This useEffect will run whenever `show` or `alertMsg` changes
-    useEffect(() => {
-    }, [show, alertMsg])
-
-    const closeAlert = () =>{
-        setShow(false)
-        dispatch(reset())
-    }
+      })
 
     return (
         <>
-        {alertMsg && show &&
+        {alertMsg &&
         <Container>
-            <Row className='justify-content-md-center'>
+            <Row className='justify-content-md-center alertMsg'>
                 <Col md='auto'>
                     <Alert variant='primary' onClose={closeAlert} dismissible>{alertMsg}</Alert>
                 </Col>

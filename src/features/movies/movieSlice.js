@@ -8,14 +8,23 @@ const initialState = {
   isLoading: false,
   movieCreated: false,
   movieDeleted: false,
-  message: '',
-  movieID: '',
-  alertMsg: ''
+  movieID: false,
+  alertMsg: false,
+  message: ''
 }
 
 export const getMovies = createAsyncThunk('movies/getAll', async (_, thunkAPI) => {
   try {
     return await movieService.getMovies()
+  } catch (error) {
+    const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
+
+export const getOneMovie = createAsyncThunk('movies/detail', async (id, thunkAPI) => {
+  try {
+    return await movieService.getOneMovie(id)
   } catch (error) {
     const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
     return thunkAPI.rejectWithValue(message)
@@ -50,6 +59,7 @@ export const movieSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
+      state.movies = []
       state.isLoading = false
       state.isSuccess = false
       state.isError = false
@@ -57,6 +67,10 @@ export const movieSlice = createSlice({
       state.movieDeleted = false
       state.message = ''
     },
+    resetAlert: (state) => {
+      state.alertMsg = false
+      state.movieID = false
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -69,6 +83,19 @@ export const movieSlice = createSlice({
       state.movies = action.payload
     })
     .addCase(getMovies.rejected, (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      state.message = action.payload
+    })
+    .addCase(getOneMovie.pending, (state) => {
+      state.isLoading = true
+    })
+    .addCase(getOneMovie.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.movies = [action.payload]
+    })
+    .addCase(getOneMovie.rejected, (state, action) => {
       state.isLoading = false
       state.isError = true
       state.message = action.payload
@@ -108,5 +135,5 @@ export const movieSlice = createSlice({
 
 })
 
-export const { reset } = movieSlice.actions
+export const {reset, resetAlert} = movieSlice.actions
 export default movieSlice.reducer

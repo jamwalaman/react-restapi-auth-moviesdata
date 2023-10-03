@@ -1,9 +1,8 @@
 import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {createMovie} from '../features/movies/movieSlice'
+import {createMovie, reset} from '../features/movies/movieSlice'
 import {Container, Row, Col, Form} from 'react-bootstrap'
-import {reset} from '../features/movies/movieSlice'
 
 function CreateMovieForm() {
 
@@ -16,8 +15,9 @@ function CreateMovieForm() {
     useEffect(() => {
         if(movieCreated) {
             navigate(`/movie/${movieID}`)
-            return () => {dispatch(reset())}
+            dispatch(reset())
         }
+        // if(!movieCreated) {dispatch(resetAlert())}
     }, [movieCreated, movieID, navigate, dispatch] )
     
     const onChange = (e) =>{

@@ -9,6 +9,11 @@ const createMovie = async (movieData, token) => {
     return response.data
 }
 
+const getOneMovie = async (movieId) => {
+    const response = await axios.get(`${apiUrl}/api/movies/${movieId}`)
+    return response.data
+}
+
 const getMovies = async () => {
     const response = await axios.get(`${apiUrl}/api/movies`)
     return response.data
@@ -22,5 +27,5 @@ const deleteMovie = async (movieId, token) => {
     return response.data
 }
 
-const movieService = {createMovie, getMovies, deleteMovie}
+const movieService = {createMovie, getOneMovie, getMovies, deleteMovie}
 export default movieService
