@@ -8,17 +8,16 @@ function CreateMovieForm() {
 
     const [formData, setFormData] = useState({ title:'', director: '', synopsis:''})
     const {title, director, synopsis} = formData
-    const {movieCreated, isError, message, movieID} = useSelector((state) => state.movies)
+    const {movieModified, isError, message, movieID} = useSelector((state) => state.movies)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if(movieCreated) {
+        if(movieModified) {
             navigate(`/movie/${movieID}`)
             dispatch(reset())
         }
-        // if(!movieCreated) {dispatch(resetAlert())}
-    }, [movieCreated, movieID, navigate, dispatch] )
+    }, [movieModified, movieID, navigate, dispatch] )
     
     const onChange = (e) =>{
         setFormData((prevState) => ({ ...prevState, [e.target.name]: e.target.value }))

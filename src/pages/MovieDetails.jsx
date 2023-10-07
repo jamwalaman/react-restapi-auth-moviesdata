@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {useParams, useNavigate} from 'react-router-dom'
+import {Link, useParams, useNavigate} from 'react-router-dom'
 import {getOneMovie, deleteMovie} from '../features/movies/movieSlice'
 import {Container, Row, Col, Button, Modal} from 'react-bootstrap'
 
@@ -11,7 +11,7 @@ function MovieDetails() {
     const [show, setShow] = useState(false)
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
-    const {isError, message, movies, movieDeleted} = useSelector((state) => state.movies)
+    const {isError, message, movies, movieModified} = useSelector((state) => state.movies)
     const {user} = useSelector((state) => state.auth)
     const {id} = useParams()
 
@@ -21,8 +21,8 @@ function MovieDetails() {
 
     useEffect(() => {
         // Redirect user to home page, when movie is deleted successfully.
-        if(movieDeleted) {navigate('/')}
-    }, [movieDeleted, navigate] )
+        if(movieModified) {navigate('/')}
+    }, [movieModified, navigate] )
 
     return (
         <>
@@ -36,6 +36,7 @@ function MovieDetails() {
             
             {user && movies[0].user === user.userID && (
                 <>
+                <Link to={`/update-movie/${movies[0]._id}`} className='button primary'>Update</Link>
                 <Button className='button danger' onClick={handleShow}>Delete</Button>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton><Modal.Title>Delete movie</Modal.Title></Modal.Header>

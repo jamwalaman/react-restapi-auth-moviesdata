@@ -10,9 +10,9 @@ function AlertMsgMovie() {
 
     useEffect(() => {
         if (alertMsg) {
-          const timeoutId = setTimeout(() => {closeAlert()}, 5000)
+          const timeoutId = setTimeout(() => {closeAlert()}, 4000)
           return () => clearTimeout(timeoutId)
-        }
+        }        
       })
 
     return (
