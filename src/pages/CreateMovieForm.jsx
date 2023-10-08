@@ -72,7 +72,7 @@ function CreateMovieForm() {
                             value={synopsis}
                             aria-describedby='validationTitle'
                             placeholder='Enter plot synopsis'
-                            rows={3}
+                            rows={5}
                             onChange={onChange}
                             />
                             {isError && JSON.parse(message).synopsis &&

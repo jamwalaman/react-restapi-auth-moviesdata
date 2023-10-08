@@ -10,6 +10,7 @@ import Register from './pages/Register'
 import MovieDetails from './pages/MovieDetails'
 import CreateMovieForm from './pages/CreateMovieForm'
 import UpdateMovieForm from './pages/UpdateMovieForm'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path='/create-movie' element={<CreateMovieForm/>} />
               <Route path='/update-movie/:id' element={<UpdateMovieForm/>} />
             </Routes>
+            <Footer />
         </div>
       </Router>
     </>

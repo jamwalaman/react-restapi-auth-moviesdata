@@ -6,7 +6,7 @@ import {Container, Row, Col, Form} from 'react-bootstrap'
 
 function UpdateMovieForm() {
 
-    const {movieModified, movies, isError, message} = useSelector((state) => state.movies)
+    const {movieModified, movies} = useSelector((state) => state.movies)
     const [formData, setFormData] = useState({ title:'', director: '', synopsis:'' })
     const {id} = useParams()
     const navigate = useNavigate()
@@ -20,12 +20,11 @@ function UpdateMovieForm() {
         if (movies && movies.length > 0) {
             setFormData({title: movies[0].title, director: movies[0].director, synopsis: movies[0].synopsis})
         }
-        if(isError) {console.log(message)}
         if(movieModified) {
             navigate(`/movie/${id}`)
             dispatch(reset())
         }
-    }, [movieModified, id, navigate, dispatch, movies, isError, message] )
+    }, [movieModified, id, navigate, dispatch, movies] )
     
     const onChange = e => { setFormData({ ...formData, [e.target.name]: e.target.value }) }
 
@@ -45,7 +44,6 @@ function UpdateMovieForm() {
                         <Form.Group className='mb-3' controlId='title'>
                             <Form.Label>Title</Form.Label>
                             <Form.Control
-                            // className= { `${isError && JSON.parse(message).title ? 'is-invalid' : ''}` }
                             type='text'
                             name='title'
                             value={formData.title}
@@ -53,13 +51,10 @@ function UpdateMovieForm() {
                             placeholder='Enter movie title'
                             onChange={onChange}
                             />
-                            {/* {isError && JSON.parse(message).title &&
-                            <Form.Control.Feedback id='validationTitle' type='invalid'>{JSON.parse(message).title.msg}</Form.Control.Feedback>} */}
                         </Form.Group>
                         <Form.Group className='mb-3' controlId='director'>
                             <Form.Label>Director</Form.Label>
                             <Form.Control
-                            // className= { `${isError && JSON.parse(message).director ? 'is-invalid' : ''}` }
                             type='text'
                             name='director'
                             value={formData.director}
@@ -67,27 +62,23 @@ function UpdateMovieForm() {
                             placeholder='Enter movie director'
                             onChange={onChange}
                             />
-                            {/* {isError && JSON.parse(message).director &&
-                            <Form.Control.Feedback id='validationTitle' type='invalid'>{JSON.parse(message).director.msg}</Form.Control.Feedback>} */}
                         </Form.Group>
                         <Form.Group className='mb-3' controlId='synopsis'>
                             <Form.Label>Plot synopsis</Form.Label>
                             <Form.Control
-                            // className= { `${isError && JSON.parse(message).synopsis ? 'is-invalid' : ''}` }
                             as="textarea"
                             name='synopsis'
                             value={formData.synopsis}
                             aria-describedby='validationTitle'
                             placeholder='Enter plot synopsis'
-                            rows={3}
+                            rows={5}
                             onChange={onChange}
                             />
-                            {/* {isError && JSON.parse(message).synopsis &&
-                            <Form.Control.Feedback id='validationTitle' type='invalid'>{JSON.parse(message).synopsis.msg}</Form.Control.Feedback>} */}
                         </Form.Group>
-                        <button type='submit' className='button primary'>Update</button>
-                        <Link to={`/movie/${id}`} className='button primary'>Go back</Link>
-
+                        <div className='d-flex'>
+                            <button type='submit' className='button primary me-4'>Update</button>
+                            <Link to={`/movie/${id}`} className='button secondary'>Go back</Link>
+                        </div>
                     </Form>
 
                 </Col>

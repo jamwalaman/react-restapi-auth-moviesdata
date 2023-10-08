@@ -6,6 +6,7 @@
     --purple-darker: #400080;
     --purple-text: #ccccff;
     --red-invalid: #cc0000;
+    --grey: #808080;
 }
 
 body {
@@ -81,6 +82,10 @@ button.drop-toggle .bi-list {
     border-width: 0;
 }
 
+.content {
+    white-space: pre-wrap;
+}
+
 .invalid-feedback {
     color: var(--red-invalid);
 }
@@ -118,6 +123,12 @@ button.drop-toggle .bi-list {
 .button.danger:hover {
     background-color: #800000;
 }
+.button.secondary {
+    background-color: var(--grey);
+}
+.button.secondary:hover {
+    background-color: #666666;
+}
 
 .button, .modal-content {
     border-radius: 0;
@@ -138,6 +149,18 @@ button.drop-toggle .bi-list {
 }
 .alert.alert-primary .btn-close:focus {
     box-shadow: none;
+}
+
+footer {
+    background-color: var(--grey);
+    color: #dbdbd7;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+footer a {
+    color: #dbdbd7;
+    text-decoration: underline;
 }
 
 @media (min-width: 992px) {

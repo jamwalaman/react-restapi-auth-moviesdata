@@ -29,15 +29,17 @@ function MovieDetails() {
         {movies && movies.length > 0 &&
         <Container>
         <Row>
-            <Col md={8} className='m-auto'>
+            <Col md={8} className='m-auto content'>
             <h3>{movies[0].title}</h3>
             <p>Directed by {movies[0].director}</p>
             <p>{movies[0].synopsis}</p>
             
             {user && movies[0].user === user.userID && (
                 <>
-                <Link to={`/update-movie/${movies[0]._id}`} className='button primary'>Update</Link>
-                <Button className='button danger' onClick={handleShow}>Delete</Button>
+                <div className='d-flex'>
+                    <Link to={`/update-movie/${movies[0]._id}`} className='button primary me-4'>Update</Link>
+                    <Button className='button danger' onClick={handleShow}>Delete</Button>
+                </div>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton><Modal.Title>Delete movie</Modal.Title></Modal.Header>
                     <Modal.Body>Please confirm you want to delete the movie: {movies[0].title}</Modal.Body>
