@@ -10,7 +10,7 @@
 }
 
 body {
-    font-family: 'Open Sans'
+    font-family: 'Open Sans';
 }
 
 a {
@@ -84,6 +84,12 @@ button.drop-toggle .bi-list {
 
 .content {
     white-space: pre-wrap;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.content .container {
+    flex-grow: 1;    
 }
 
 .invalid-feedback {
@@ -154,9 +160,6 @@ button.drop-toggle .bi-list {
 footer {
     background-color: var(--grey);
     color: #dbdbd7;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
 }
 footer a {
     color: #dbdbd7;

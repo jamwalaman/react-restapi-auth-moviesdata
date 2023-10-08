@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Link, useParams, useNavigate} from 'react-router-dom'
 import {getOneMovie, deleteMovie} from '../features/movies/movieSlice'
 import {Container, Row, Col, Button, Modal} from 'react-bootstrap'
+import SpinnerLoading from '../components/SpinnerLoading'
 
 function MovieDetails() {
 
@@ -11,7 +12,7 @@ function MovieDetails() {
     const [show, setShow] = useState(false)
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
-    const {isError, message, movies, movieModified} = useSelector((state) => state.movies)
+    const {isError, message, movies, movieModified, isLoading} = useSelector((state) => state.movies)
     const {user} = useSelector((state) => state.auth)
     const {id} = useParams()
 
@@ -24,12 +25,14 @@ function MovieDetails() {
         if(movieModified) {navigate('/')}
     }, [movieModified, navigate] )
 
+    if (isLoading) {return <SpinnerLoading />}
+
     return (
         <>
         {movies && movies.length > 0 &&
         <Container>
         <Row>
-            <Col md={8} className='m-auto content'>
+            <Col md={8} className='m-auto'>
             <h3>{movies[0].title}</h3>
             <p>Directed by {movies[0].director}</p>
             <p>{movies[0].synopsis}</p>

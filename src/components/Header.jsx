@@ -28,8 +28,8 @@ function Header() {
 			</Container>
 		</Navbar>
 		{/* Mobile nav */}
-		<div className='mobile-nav-bg'>
-			<div className='mobile-nav p-4 mb-2'>
+		<div className='mobile-nav-bg mb-4'>
+			<div className='mobile-nav p-4'>
 				<Link to='/' className='navbar-brand'>Fav Movies</Link>
 				<button className='drop-toggle' onClick={toggleDropdown}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
