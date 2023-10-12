@@ -1,3 +1,7 @@
+[Click here](https://moviesdata-react.netlify.app/) to view this app in action
+
+This is the front end for [NodeJS](https://github.com/jamwalaman/nodejs-restapi-auth) api I created
+***
 # Getting Started with Create React App and Redux
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
