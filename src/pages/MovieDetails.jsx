@@ -4,6 +4,7 @@ import {Link, useParams, useNavigate} from 'react-router-dom'
 import {getOneMovie, deleteMovie} from '../features/movies/movieSlice'
 import {Container, Row, Col, Button, Modal} from 'react-bootstrap'
 import SpinnerLoading from '../components/SpinnerLoading'
+const {DateTime} = require('luxon')
 
 function MovieDetails() {
 
@@ -33,7 +34,11 @@ function MovieDetails() {
         <Container>
         <Row>
             <Col md={8} className='m-auto'>
-            <h3>{movies[0].title}</h3>
+            <h3>
+                {movies[0].title} {movies[0].release_date &&
+                    <span>({DateTime.fromISO(movies[0].release_date).toFormat('yyyy')})</span>
+                }
+            </h3>
             <p>Directed by {movies[0].director}</p>
             <p>{movies[0].synopsis}</p>
             
