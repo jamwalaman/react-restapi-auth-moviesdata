@@ -33,7 +33,7 @@ function Register() {
                 <Col md={6} className='m-auto'>
                 <h1>Register to add your fav movies</h1>
 
-                    <Form onSubmit={onSubmit}>
+                    <Form onSubmit={onSubmit} noValidate>
                         <Form.Group className='mb-3' controlId='username'>
                             <Form.Label>Username</Form.Label>
                             <Form.Control
