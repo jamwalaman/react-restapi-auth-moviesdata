@@ -1,13 +1,14 @@
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import {Container, Row, Col, Form} from 'react-bootstrap'
 import {Link, useParams, useNavigate} from 'react-router-dom'
 import {getOneMovie, updateMovie, reset} from '../features/movies/movieSlice'
-import {Container, Row, Col, Form} from 'react-bootstrap'
+const {DateTime} = require('luxon')
 
 function UpdateMovieForm() {
 
     const {movieModified, movies} = useSelector((state) => state.movies)
-    const [formData, setFormData] = useState({ title:'', director: '', synopsis:'' })
+    const [formData, setFormData] = useState({ title:'', director:'', synopsis:'', release_date:'' })
     const {id} = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -18,7 +19,7 @@ function UpdateMovieForm() {
 
     useEffect(() => {
         if (movies && movies.length > 0) {
-            setFormData({title: movies[0].title, director: movies[0].director, synopsis: movies[0].synopsis})
+            setFormData({title: movies[0].title, director: movies[0].director, synopsis: movies[0].synopsis, release_date: movies[0].release_date})
         }
         if(movieModified) {
             navigate(`/movie/${id}`)
@@ -63,10 +64,19 @@ function UpdateMovieForm() {
                             onChange={onChange}
                             />
                         </Form.Group>
+                        <Form.Group className='mb-3' controlId='release_date'>
+                            <Form.Label>Release Date</Form.Label>
+                            <Form.Control
+                            type='date'
+                            name='release_date'
+                            value={DateTime.fromISO(formData.release_date).toFormat('yyyy-LL-dd')}
+                            placeholder='dd/mm/yyyy'
+                            onChange={onChange} />
+                        </Form.Group>
                         <Form.Group className='mb-3' controlId='synopsis'>
                             <Form.Label>Plot synopsis</Form.Label>
                             <Form.Control
-                            as="textarea"
+                            as='textarea'
                             name='synopsis'
                             value={formData.synopsis}
                             aria-describedby='validationTitle'

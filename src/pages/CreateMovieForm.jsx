@@ -6,8 +6,8 @@ import {Container, Row, Col, Form} from 'react-bootstrap'
 
 function CreateMovieForm() {
 
-    const [formData, setFormData] = useState({ title:'', director: '', synopsis:''})
-    const {title, director, synopsis} = formData
+    const [formData, setFormData] = useState({ title:'', director:'', synopsis:'', release_date:'' })
+    const {title, director, synopsis, release_date} = formData
     const {movieModified, isError, message, movieID} = useSelector((state) => state.movies)
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -24,7 +24,7 @@ function CreateMovieForm() {
     }
     const onSubmit = e => {
         e.preventDefault()
-        dispatch(createMovie({title, director, synopsis}))
+        dispatch(createMovie({title, director, synopsis, release_date}))
     }
 
     return (
@@ -62,6 +62,10 @@ function CreateMovieForm() {
                             />
                             {isError && JSON.parse(message).director &&
                             <Form.Control.Feedback id='validationTitle' type='invalid'>{JSON.parse(message).director.msg}</Form.Control.Feedback>}
+                        </Form.Group>
+                        <Form.Group className='mb-3' controlId='release_date'>
+                            <Form.Label>Release Date</Form.Label>
+                            <Form.Control type='date' name='release_date' value={release_date} placeholder='dd/mm/yyyy' onChange={onChange} />
                         </Form.Group>
                         <Form.Group className='mb-3' controlId='synopsis'>
                             <Form.Label>Plot synopsis</Form.Label>
